@@ -47,7 +47,7 @@ const rScoreRouter = require('./api/routes/round_score_statistic.router');
 server.use('/round_score', rScoreRouter);
 
 const finalWinRouter = require('./api/routes/final_winner.router');
-// server.use('/winner', finalWinRouter);
+server.use('/final_winner', finalWinRouter);
 
 const giftRouter = require('./api/routes/gifts.router');
 server.use('/gifts', giftRouter);
