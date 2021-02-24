@@ -1,16 +1,16 @@
 const express = require('express');
 const server = express();
-const mongoose = require('mongoose');
 server.use(express.json());
 require('dotenv/config')
+const db = require('./api/config/db')
 
-// CONNECTION TO MONGODB
-mongoose.connect(process.env.DB_CONNECT, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true}, ()=>{
-    console.log("Connected to mongoDB success");
-    server.listen(3000, () => {
-        console.log('run server');
-    })    
-});
+db.connect()
+    .then(()=>{
+        console.log("Connected to mongoDB success");
+        server.listen(process.env.PORT, () => {
+            console.log('run server port:' + process.env.PORT);
+        })
+    })
 
 // const twilio = require('twilio');
 // //initialize
@@ -52,3 +52,4 @@ const finalWinRouter = require('./api/routes/final_winner.router');
 const giftRouter = require('./api/routes/gifts.router');
 server.use('/gifts', giftRouter);
 
+// db.close()

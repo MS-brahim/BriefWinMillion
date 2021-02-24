@@ -2,6 +2,7 @@ const Paricipant = require('../models/Participant.model');
 const {loginValidation,registerValidation} = require('../validation/particip.validation')
 const jwt = require('jsonwebtoken');
 const logSchema = require('../models/Logger.model');
+const sendMail = require('../middleware/mail');
 const log = require('../config/log');
 
 // GET PARTICIPANT 
@@ -66,15 +67,17 @@ const registerParticipant = async (req, res)=>{
 
 // VALIDE PARTICIPANT
 const validerParticipant = async (req, res)=>{
+
     try {
         const paricipantUpd = await Paricipant.updateOne(
             {_id:req.params.id},
-            {$set:{is_valid    : req.body.is_valid}}
+            {$set:{is_valid    : true}}
         );
         res.status(200).json(paricipantUpd);
+        sendMail.sendMail(paricipantUpd.email)
         log({
             file:'participant.controller.js',
-            line:74,
+            line:76,
             info:'Validate Participans',
             type:'INFO'
         },logSchema)
@@ -82,7 +85,7 @@ const validerParticipant = async (req, res)=>{
         res.json({message:error})
         log({
             file:'participant.controller.js',
-            line:82,
+            line:85,
             info:error.message,
             type:'ERROR'
         },logSchema)
