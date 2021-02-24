@@ -37,9 +37,6 @@ server.use('/question', questiontRouter);
 const GRP_memberRouter = require('./api/routes/GRP_member.router');
 server.use('/groupMember', GRP_memberRouter);
 
-const giftRouter = require('./api/routes/gifts.router');
-server.use('/gifts', giftRouter);
-
 const qstTokenRouter = require('./api/routes/qstToken.router');
 server.use('/question_token', qstTokenRouter);
 
@@ -52,5 +49,6 @@ server.use('/round_score', rScoreRouter);
 const finalWinRouter = require('./api/routes/final_winner.router');
 // server.use('/winner', finalWinRouter);
 
-
+const giftRouter = require('./api/routes/gifts.router');
+server.use('/gifts', giftRouter);
 

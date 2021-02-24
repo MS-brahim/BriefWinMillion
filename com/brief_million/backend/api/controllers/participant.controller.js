@@ -1,14 +1,28 @@
 const Paricipant = require('../models/Participant.model');
 const {loginValidation,registerValidation} = require('../validation/particip.validation')
 const jwt = require('jsonwebtoken');
+const logSchema = require('../models/Logger.model');
+const log = require('../config/log');
 
 // GET PARTICIPANT 
 const getParticipant = async (req,res)=>{
     try {
         const paricipants = await Paricipant.find();
         res.json(paricipants) 
+        log({
+            file:'participant.controller.js',
+            line:11,
+            info:'Get Participans',
+            type:'INFO'
+        },logSchema)
     } catch (error) {
         res.json({message:error})
+        log({
+            file:'participant.controller.js',
+            line:19,
+            info:error.message,
+            type:'ERROR'
+        },logSchema)
     }
 };
 
@@ -33,8 +47,20 @@ const registerParticipant = async (req, res)=>{
     try {
         const saveParicipant = await newParicipant.save();
         res.json(saveParicipant);
+        log({
+            file:'participant.controller.js',
+            line:49,
+            info:'Register New Participan',
+            type:'INFO'
+        },logSchema)
     } catch (error) {
         res.json({message:error})
+        log({
+            file:'participant.controller.js',
+            line:52,
+            info:error.message,
+            type:'ERROR'
+        },logSchema)
     } 
 }
 
@@ -46,8 +72,20 @@ const validerParticipant = async (req, res)=>{
             {$set:{is_valid    : req.body.is_valid}}
         );
         res.status(200).json(paricipantUpd);
+        log({
+            file:'participant.controller.js',
+            line:74,
+            info:'Validate Participans',
+            type:'INFO'
+        },logSchema)
     } catch (error) {
         res.json({message:error})
+        log({
+            file:'participant.controller.js',
+            line:82,
+            info:error.message,
+            type:'ERROR'
+        },logSchema)
     }
 }
 

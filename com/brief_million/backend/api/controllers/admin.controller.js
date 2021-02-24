@@ -1,15 +1,28 @@
 const jwt = require('jsonwebtoken');
-
 const {loginValidation} =require('../validation/admin.validation');
 const Admin = require('../models/Admin.model');
+const logSchema = require('../models/Logger.model');
+const log = require('../config/log');
 
 // GET DATA 
 const getAdmin = async (req,res)=>{
     try {
         const admins = await Admin.find();
         res.json(admins) 
+        log({
+            file:'admins.controller.js',
+            line:11,
+            info:'Get Admins',
+            type:'INFO'
+        },logSchema)
     } catch (error) {
         res.json({message:error})
+        log({
+            file:'admins.controller.js',
+            line:19,
+            info:error.message,
+            type:'ERROR'
+        },logSchema)
     }
 };
 
@@ -44,8 +57,20 @@ const postAdmin = async (req, res)=>{
     try {
         const saveAdmin = await newAdmin.save();
         res.json(saveAdmin);
+        log({
+            file:'admins.controller.js',
+            line:59,
+            info:'Post new Admin',
+            type:'INFO'
+        },logSchema)
     } catch (error) {
         res.json({message:error})
+        log({
+            file:'admins.controller.js',
+            line:67,
+            info:error.message,
+            type:'ERROR'
+        },logSchema)
     } 
 };
 
