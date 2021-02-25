@@ -3,27 +3,16 @@ const server = express();
 server.use(express.json());
 require('dotenv/config')
 const db = require('./api/config/db')
+const PORT = process.env.PORT || 3000
 
 db.connect()
     .then(()=>{
         console.log("Connected to mongoDB success");
-        server.listen(process.env.PORT, () => {
-            console.log('run server port:' + process.env.PORT);
+        server.listen(PORT, () => {
+            console.log('run server port: ' + PORT);
         })
     })
-
-// const twilio = require('twilio');
-// //initialize
-// server.get('/', (req, res)=>{
-//   var client = new twilio ('ibra him', 'aR533eO5CwsOfKvpTbcCXp0n5BCYIc70Ly9sGHVd')
-//   client.messages.create({
-//     to:'0607279713',
-//     from:'989898899889',
-//     body:'hello node js '
-//   })
-//   send('send sms')
-// })
-
+    .catch((err)=>console.log(err))
 
 const adminRouter = require('./api/routes/admin.router');
 server.use('/admin', adminRouter);
@@ -52,4 +41,4 @@ server.use('/final_winner', finalWinRouter);
 const giftRouter = require('./api/routes/gifts.router');
 server.use('/gifts', giftRouter);
 
-// db.close()
+module.exports = server;
