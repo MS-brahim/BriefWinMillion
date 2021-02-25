@@ -15,9 +15,10 @@ const findRoundSS = async (req, res)=>{
 const postRoundScore = async (req, res)=>{
 
     const displayScore = await QuestionModel.findOne(
-        {points:req.params.points},
+        {_id:req.params.id},
     )
-    console.log(displayScore);
+    // console.log(res.json(displayScore));
+
     
     const newRoundScore = new RoundScore({
         id_round   : req.body.id_round,
