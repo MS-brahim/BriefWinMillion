@@ -110,10 +110,19 @@ const loginParticipant = async (req, res)=>{
     const authParticipIsValid = await Paricipant.findOne({is_valid:true});
     if(!authParticipIsValid) return res.status(400).send('Admin must verify your access!!');
 
-    const token = jwt.sign({_id:authParticip._id}, process.env.TOKEN_SECRET,{expiresIn:'120m'});
+    const token = jwt.sign({_id:authParticip._id}, process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIR});
     res.header('Authorization', token).send(token);
 
 };
+
+// const getProfile = async (req, res)=> {
+//     try {
+//         const profile = await Paricipant.findOne({_id:req.params.id});
+//         res.json(profile);
+//     } catch (err) {
+//         res.json({message:err});
+//     }
+// }
 
 // UPDATE PARTICIPANT
 const updateParticipant = async (req, res)=>{

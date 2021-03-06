@@ -3,7 +3,7 @@ const GroupMember = require('../models/Group_members.model');
 // GET GROUP MEMEBER 
 const getGrpMemebr = async (req,res)=>{
     try {
-        const groupMembers = await GroupMember.find().populate('participants.id_participant');
+        const groupMembers = await GroupMember.find().populate('id_participant');
         res.json(groupMembers) 
     } catch (error) {
         res.json({message:error})

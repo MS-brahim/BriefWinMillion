@@ -1,10 +1,10 @@
 const router = require('express').Router();
 
 const participantController = require('../controllers/participant.controller');
-const verifyTokenParticipant = require('../validation/verifyTokenParticipant');
-const verifyTokenAdmin = require('../validation/verifyTokenAdmin')
+const verifyTokenParticipant = require('../middleware/verifyTokenParticipant');
+const verifyTokenAdmin = require('..//middleware/verifyTokenAdmin')
 
-router.route('/').get(verifyTokenParticipant, participantController.getParticipant)
+router.route('/').get( participantController.getParticipant)
 router.route('/SignUp').post(participantController.registerParticipant)
 router.route('/login').post(participantController.loginParticipant)
 router.route('/validateParticipant/:id').patch(verifyTokenAdmin, participantController.validerParticipant)

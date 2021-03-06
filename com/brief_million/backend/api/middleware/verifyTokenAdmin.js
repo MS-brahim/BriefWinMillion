@@ -4,7 +4,7 @@ module.exports = function (req, res, next) {
     const token = req.header('Authorization');
     if(!token) return res.status(401).send('Please login first');
     try {
-        const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
         req.authAdmin = verified;
         next();
     } catch (error) {

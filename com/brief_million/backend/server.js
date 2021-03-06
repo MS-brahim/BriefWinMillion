@@ -1,9 +1,9 @@
 const express = require('express');
 const server = express();
-server.use(express.json());
 require('dotenv/config')
 const db = require('./api/config/db')
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5000;
+const cors = require('cors');
 
 db.connect()
     .then(()=>{
@@ -13,6 +13,9 @@ db.connect()
         })
     })
     .catch((err)=>console.log(err))
+    
+server.use(express.json());
+server.use(cors());
 
 const adminRouter = require('./api/routes/admin.router');
 server.use('/admin', adminRouter);

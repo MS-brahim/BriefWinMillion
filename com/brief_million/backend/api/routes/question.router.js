@@ -1,9 +1,9 @@
 const questionController = require('../controllers/question.controller');
-const verifyTokenAdmin = require('../validation/verifyTokenAdmin');
+const verifyTokenAdmin = require('../middleware/verifyTokenAdmin');
 
 const router = require('express').Router();
 
-router.route('/').get(verifyTokenAdmin, questionController.getQuestin)
+router.route('/').get( questionController.getQuestin)
 router.route('/post').post(verifyTokenAdmin, questionController.postQuestion)
 
 // router.route('/update/:id').patch(verifyTokenAdmin, questionController.updateQuestion)

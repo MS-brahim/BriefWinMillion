@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const {loginValidation} =require('../validation/admin.validation');
+const {loginValidation} = require('../validation/admin.validation');
 const Admin = require('../models/Admin.model');
 const logSchema = require('../models/Logger.model');
 const log = require('../config/log');
@@ -37,7 +37,7 @@ const loginAdmin = async (req, res)=>{
     const authAdmin = await Admin.findOne({phone:req.body.phone});
     if(!authAdmin) return res.status(400).send('Phone Number is not found!!');
 
-    const token = jwt.sign({_id:authAdmin._id}, process.env.TOKEN_SECRET,{expiresIn:'120m'});
+    const token = jwt.sign({_id:authAdmin._id}, process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIR});
     res.header('Authorization', token).send(token);
 
 };

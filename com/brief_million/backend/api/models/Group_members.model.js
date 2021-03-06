@@ -7,7 +7,6 @@ const groupMemberSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: ParticipantModel,
         }],
-        
 
         validate: [groupLimit, '{PATH} exceeds the limit of 4']
 
