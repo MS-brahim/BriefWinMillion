@@ -3,7 +3,7 @@ const verifyTokenParticipant = require('../middleware/verifyTokenParticipant');
 const router = require('express').Router();
 
 router.route('/').get( GRPController.getGrpMemebr)
-router.route('/post').post(verifyTokenParticipant, GRPController.postGrpMember)
+router.route('/post').post( GRPController.postGrpMember)
 router.route('/join/:id').put(verifyTokenParticipant, GRPController.joiGroup)
 
 

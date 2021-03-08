@@ -10,3 +10,7 @@ export const FETCH_FAILED         = 'FETCHING_FAILED';
 export const FETCH_GRP_MEMBER       = 'FETCH_GRP_MEMBER';
 export const GRP_MEMBER_SUCCESS     = 'GRP_MEMBER_SUCCESS';
 export const GRP_MEMBER_FAILED      = 'GRP_MEMBER_FAILED';
+
+export const JOIN_GROUP             = 'JOIN_GROUP';
+export const JOIN_GROUP_SUCCESS     = 'JOIN_GROUP_SUCCESS';
+export const JOIN_GROUP_FAILED      = 'JOIN_GROUP_FAILED';

@@ -39,7 +39,7 @@ class NavbarComponent extends Component {
   render() {  
     return (
       <div>
-        <Navbar color="light" light expand="md">
+        <Navbar style={{backgroundColor:'black'}} light expand="md">
           <NavbarBrand href="/"><img src={logo} alt="logo" width="50"/></NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>

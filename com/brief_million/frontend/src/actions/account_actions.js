@@ -1,5 +1,7 @@
-import {apiGroupMember} from '../api/account';
-import {FETCH_GRP_MEMBER, GRP_MEMBER_SUCCESS, GRP_MEMBER_FAILED} from '../actions/types';
+import {apiGroupMember, apiJoinGroup} from '../api/account';
+import {FETCH_GRP_MEMBER, GRP_MEMBER_SUCCESS, GRP_MEMBER_FAILED,
+        JOIN_GROUP, JOIN_GROUP_SUCCESS, JOIN_GROUP_FAILED,
+    } from '../actions/types';
 
 export const fetchGroupMember = () => {
     return async (dispatch) => {
@@ -10,6 +12,19 @@ export const fetchGroupMember = () => {
             dispatch({type: GRP_MEMBER_SUCCESS, payload:data})
         } catch (error) {
             dispatch({type: GRP_MEMBER_FAILED});
+        }
+    }
+}
+
+export const jointToGroup = () => {
+    return async (dispatch) => {
+        try {
+            dispatch({type: JOIN_GROUP})
+            const {data} = await apiJoinGroup();
+            console.log(data);
+            dispatch({type: JOIN_GROUP_SUCCESS, payload:data})
+        } catch (error) {
+            dispatch({type: JOIN_GROUP_FAILED});
         }
     }
 }

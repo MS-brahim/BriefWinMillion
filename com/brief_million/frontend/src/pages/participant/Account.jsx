@@ -6,15 +6,15 @@ import {Button, Card, CardBody, CardHeader, CardText, Col, Row } from 'reactstra
 //     state = {
 //         groups:[]
 //     }
-//     componentDidMount () {
-//         axios.get('http://localhost:5000/groupMember')
-//             .then(res => {
-//                 console.log(res);
-//             this.setState({
-//                 groups: res.data,
-//             })
-//         })
-//     } 
+    // componentDidMount () {
+    //     axios.get('http://localhost:5000/groupMember')
+    //         .then(res => {
+    //             console.log(res);
+    //         this.setState({
+    //             groups: res.data,
+    //         })
+    //     })
+    // } 
 
     // render() { 
     //     const {groups} = this.state;
@@ -62,16 +62,26 @@ import {Button, Card, CardBody, CardHeader, CardText, Col, Row } from 'reactstra
 
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import {fetchGroupMember} from '../../actions/account_actions';
+import {fetchGroupMember, jointToGroup} from '../../actions/account_actions';
 import { Spinner } from '../../components/Spinner';
  
 class AccountPage extends Component {
     
     componentDidMount(){
-        const {fetchGroupMember} = this.props;
+        const {fetchGroupMember, joionToGroup} = this.props;
         fetchGroupMember();
+        
     }
 
+    joionToGroup(id){
+        console.log(id);
+    }
+    
+    formAddGroup () {
+        console.log("hello");
+
+    }
+    
     render() { 
         const {groupsMember, fetching} = this.props.groupsMember;
         if (fetching) {
@@ -84,7 +94,8 @@ class AccountPage extends Component {
                     <Col>
                         <Card>
                             <CardBody 
-                                
+                                id="div1"
+                                onClick={()=>this.formAddGroup()}
                                 type="button"
                                 className="d-flex align-items-center m-auto  btn btn-outline-light">
                                 <i className="fas fa-plus-square"style={{ 
@@ -98,9 +109,9 @@ class AccountPage extends Component {
                     {(groupsMember).map((item, i) => (
                         <Col>
                             <Card key={item._id}>
-                                <CardHeader><b>Group : <i className="text-primary">{item.group_code}</i></b>
+                                <CardHeader className='bg-dark text-white'><b>Group : <i className="text-primary">{item.group_code}</i></b>
                                     <div className="float-right">
-                                        <Button className="btn btn-dark btn-sm" disabled>JOIN</Button>
+                                        <Button onClick={()=> this.joionToGroup(item._id)} className="btn btn-light btn-sm">JOIN</Button>
                                     </div>
                                 </CardHeader>
                                 <CardBody>
@@ -115,7 +126,6 @@ class AccountPage extends Component {
     }
 }
 const mapStateToProps = (groupsMember) => {
-    // console.log(groupsMember);
      return {
         fetching: groupsMember.fetching,
         groupsMember: groupsMember.groupsMember
