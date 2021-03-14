@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import {
     Alert,
     Col, 
-    Container, 
     Form,
     FormGroup,
     Input, 
@@ -39,10 +38,20 @@ class LoginPage extends Component {
     }
     render() { 
         return (
-            <Container>
+            <div style={{
+                justifyContent:'center',
+                alignItems:'center', 
+                display:'flex', 
+                height:'100%', 
+                zIndex:1,
+                position:'absolute',
+                opacity:0.8,
+                width: '-webkit-fill-available',
+
+            }}>
                 <Row>
                     
-                    <Col sm="6" className="m-auto">
+                    <Col sm="12" className="m-auto">
                         <div className="p-5 mt-5 shadow p-3 mb-5 bg-white rounded mt-5">
                             <h3>Admin Log in</h3>
                             {this._renderErrorIfAny()}
@@ -99,7 +108,7 @@ class LoginPage extends Component {
                         </div>
                     </Col>
                 </Row>
-            </Container>
+            </div>
         );
     }
 }

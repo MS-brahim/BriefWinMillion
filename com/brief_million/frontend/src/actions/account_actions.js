@@ -8,7 +8,7 @@ export const fetchGroupMember = () => {
         try {
             dispatch({type: FETCH_GRP_MEMBER})
             const {data} = await apiGroupMember();
-            console.log(data);
+            // console.log(data);
             dispatch({type: GRP_MEMBER_SUCCESS, payload:data})
         } catch (error) {
             dispatch({type: GRP_MEMBER_FAILED});
@@ -16,15 +16,16 @@ export const fetchGroupMember = () => {
     }
 }
 
-export const jointToGroup = () => {
+export const jointToGroup = (id) => {
     return async (dispatch) => {
         try {
             dispatch({type: JOIN_GROUP})
-            const {data} = await apiJoinGroup();
-            console.log(data);
+            const {data} = await apiJoinGroup(id);
+            // console.log(data);
             dispatch({type: JOIN_GROUP_SUCCESS, payload:data})
         } catch (error) {
             dispatch({type: JOIN_GROUP_FAILED});
         }
     }
 }
+

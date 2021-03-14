@@ -17,10 +17,10 @@ const postGrpMember = async (req, res)=>{
         const existParticipant = await GroupMember.findOne({id_participant:req.body.id_participant[i]})
         if(existParticipant) return res.status(400).send('Participant already exists in Group');
     }
-    
+    console.log(req.body.id_participant[0]);
     const newgroupMember = new GroupMember({
         id_participant  : req.body.id_participant,
-        group_code      : req.body.group_code
+        group_code      : 'GCode'+Math.floor(Math.random() * 1000)+req.body.id_participant[0]
     });
     try {
         const savegroupMember = await newgroupMember.save();

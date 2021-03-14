@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import {
     Alert,
     Col, 
-    Container, 
     Form,
     FormGroup,
     Input, 
@@ -17,7 +16,6 @@ import { Link } from 'react-router-dom';
 import img from '../../assets/image.jpg';
 import {connect} from 'react-redux';
 import {logIn} from '../../actions';
-
 class LoginPage extends Component {
 
     componentDidUpdate(){
@@ -31,6 +29,7 @@ class LoginPage extends Component {
     }
     _handleFormSubmit(values, bag){
         this.props.logIn(values);
+        // console.log(values.phone);
         this.bag = bag;
     }
     _renderErrorIfAny(){
@@ -41,7 +40,16 @@ class LoginPage extends Component {
     }
     render() { 
         return (
-            <Container>
+            <div style={{
+                justifyContent:'center',
+                alignItems:'center', 
+                display:'flex', 
+                height:'100%', 
+                zIndex:1,
+                position:'absolute',
+                opacity:0.8,
+                width: '-webkit-fill-available',
+            }}>
                 <Row className="shadow p-3 mb-5 bg-white rounded mt-5">
                     <Col sm="6">
                         <img src={img} alt="image" className="img-fluid w-100 h-100" />
@@ -105,7 +113,7 @@ class LoginPage extends Component {
                         </div>
                     </Col>
                 </Row>
-            </Container>
+            </div>
         );
     }
 }
@@ -114,7 +122,9 @@ const mapStateToProps = ({ auth }) =>{
         attempting : auth.attempting,
         error      : auth.error,
         isAuth     : auth.isAuth,
+        account    : auth.account
     }
 }
 const Login = connect(mapStateToProps, { logIn })(LoginPage)
+
 export {Login};

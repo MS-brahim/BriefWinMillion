@@ -31,7 +31,7 @@ class NavbarComponent extends Component {
     const { isAuth, logout } = this.props;
     if (isAuth) {
       return (
-        <NavbarText><NavLink type="button" onClick={()=> logout()}>logout</NavLink></NavbarText>
+        <NavbarText><NavLink className="text-white" type="button" onClick={()=> logout()}>logout</NavLink></NavbarText>
       );
     }
     return false;

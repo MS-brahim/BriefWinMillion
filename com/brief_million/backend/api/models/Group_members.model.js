@@ -12,7 +12,7 @@ const groupMemberSchema = new mongoose.Schema({
 
     },
     group_code:{
-        type:Number,
+        type:String,
         required:true,
         // unique:true
     },

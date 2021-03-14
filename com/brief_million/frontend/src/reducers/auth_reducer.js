@@ -5,7 +5,7 @@ const INITIAL_STATE = {
     account:{},
     error: null,
 };
- 
+
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case AUTH_ATTEMPTING:

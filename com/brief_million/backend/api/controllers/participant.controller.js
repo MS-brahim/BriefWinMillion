@@ -12,7 +12,7 @@ const getParticipant = async (req,res)=>{
         res.json(paricipants) 
         log({
             file:'participant.controller.js',
-            line:11,
+            line:12,
             info:'Get Participans',
             type:'INFO'
         },logSchema)
@@ -20,7 +20,7 @@ const getParticipant = async (req,res)=>{
         res.json({message:error})
         log({
             file:'participant.controller.js',
-            line:19,
+            line:20,
             info:error.message,
             type:'ERROR'
         },logSchema)
@@ -50,7 +50,7 @@ const registerParticipant = async (req, res)=>{
         res.json(saveParicipant);
         log({
             file:'participant.controller.js',
-            line:49,
+            line:50,
             info:'Register New Participan',
             type:'INFO'
         },logSchema)
@@ -58,7 +58,7 @@ const registerParticipant = async (req, res)=>{
         res.json({message:error})
         log({
             file:'participant.controller.js',
-            line:52,
+            line:58,
             info:error.message,
             type:'ERROR'
         },logSchema)
@@ -77,7 +77,7 @@ const validerParticipant = async (req, res)=>{
         sendMail.sendMail(paricipantUpd.email)
         log({
             file:'participant.controller.js',
-            line:76,
+            line:77,
             info:'Validate Participans',
             type:'INFO'
         },logSchema)
@@ -110,19 +110,14 @@ const loginParticipant = async (req, res)=>{
     const authParticipIsValid = await Paricipant.findOne({is_valid:true});
     if(!authParticipIsValid) return res.status(400).send('Admin must verify your access!!');
 
+    // const profile = await Paricipant.findOne({_id:authParticip.id});
     const token = jwt.sign({_id:authParticip._id}, process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIR});
-    res.header('Authorization', token).send(token);
+    res.send({token, authParticip});
+    // console.log(authParticip.id);
+    
+    // console.log(profile);
 
 };
-
-// const getProfile = async (req, res)=> {
-//     try {
-//         const profile = await Paricipant.findOne({_id:req.params.id});
-//         res.json(profile);
-//     } catch (err) {
-//         res.json({message:err});
-//     }
-// }
 
 // UPDATE PARTICIPANT
 const updateParticipant = async (req, res)=>{

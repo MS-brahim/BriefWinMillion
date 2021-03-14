@@ -4,6 +4,6 @@ export const apiGroupMember = ()=>{
     return axios.get('/groupMember');
 }
 
-export const apiJoinGroup = ()=>{
-    return axios.put('/groupMember/join/');
+export const apiJoinGroup = (id)=>{
+    return axios.put('/groupMember/join/'+id);
 }

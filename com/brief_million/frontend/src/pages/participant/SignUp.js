@@ -3,7 +3,6 @@ import  * as Yup from 'yup';
 import React, { Component } from 'react';
 import {
     Col, 
-    Container, 
     Form,
     FormGroup,
     Input, 
@@ -14,14 +13,33 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import img from '../../assets/image.jpg';
+// import {signUp} from '../../actions';
+import axios from 'axios';
  
 class SignUp extends Component {
+    componentDidUpdate(){
+        const { error } = this.props;
+        if (error && this.bag) {
+            this.bag.setSubmitting(false);
+        }
+    }
     _handleFormSubmit(values){
         console.log(values);
+        this.props.signUp(values)
+
     }
     render() { 
         return (
-            <Container>
+            <div style={{
+                justifyContent:'center',
+                alignItems:'center', 
+                display:'flex', 
+                height:'100%', 
+                zIndex:1,
+                position:'absolute',
+                opacity:0.8,
+                width: '-webkit-fill-available',
+            }}>
                 <Row className="shadow p-3 mb-5 bg-white rounded mt-5">
                     <Col sm="6">
                         <img src={img} alt="image" className="img-fluid w-100 h-100" />
@@ -127,7 +145,7 @@ class SignUp extends Component {
                         </div>
                     </Col>
                 </Row>
-            </Container>
+            </div>
         );
     }
 }
