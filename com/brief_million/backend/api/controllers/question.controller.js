@@ -3,7 +3,7 @@ const Question = require('../models/Question.model');
 // GET QUESTIONS
 const getQuestin = async (req,res)=>{
     try {
-        const questions = await Question.find().limit(2);
+        const questions = await Question.find().limit(1);
         res.json(questions) 
     } catch (error) {
         res.json({message:error})
