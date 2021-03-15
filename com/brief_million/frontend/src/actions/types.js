@@ -1,6 +1,7 @@
 export const AUTH_ATTEMPTING = 'AUTH_ATTEMPTING';
 export const AUTH_SUCCESS    = 'AUTH_SUCCESS';
 export const AUTH_FAILED     = 'AUTH_FAILED';
+export const SIGNUP_SUCCESS  = 'SIGNUP_SUCCESS';
 export const LOGOUT          = 'LOGOUT';
 
 export const FETCHING_PARTICIPANT = 'FETCHING_PARTICIPANT';

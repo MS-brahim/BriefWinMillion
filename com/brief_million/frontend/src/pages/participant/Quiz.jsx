@@ -10,12 +10,9 @@ const socket = io();
 class Quiz extends Component {  
     state = {
         questions:[],
-        currentQuestion: {},
-        setCurrentQuestion: {},
-        showScore:{},
-        setShowScore:{},
-        score:{},
-        setScore:0
+        // currentQuestion: {},
+        // answer: 0,
+        //false_choice: {}
 
     }
     componentDidMount(){
@@ -31,10 +28,23 @@ class Quiz extends Component {
     } 
 
     
-    handleChoice(answer, falseChoice, questionId){
-        
-        console.log(answer);
-        console.log({answer, falseChoice, questionId});
+    handleChoice(pAnswer, questionId){
+        if (pAnswer === 2) {
+            console.log('koko');
+
+            axios.post('/question_token/post',
+                {
+                    "id_question" : questionId,
+                    "participant_answer" : pAnswer,
+                    "id_participant" : localStorage.getItem('idAuthP')
+                }
+            )
+            .then(res =>{
+                console.log(res.data);
+            })
+        }
+        console.log(pAnswer, questionId);
+        // console.log({answer, falseChoice, questionId});
         console.log(localStorage.getItem('idAuthP'));
         console.log(localStorage.getItem('idGroup'));
     }
@@ -45,13 +55,13 @@ class Quiz extends Component {
 
             questions.map((item ,index )=> {
                 return (
-                    <div key={item._id} className="">
-                        <span className="alert alert-primary">{item.question}</span>
+                    <div key={item._id} className="mt-5">
+                        <span className="card bg-primary text-white p-3 my-3">{item.question}</span>
                         <ul className="list-group list-group-flush">
-                            <li onClick={() => this.handleChoice((item.answer),(item.false_choices), (item._id))} type="button" className="list-group-item">{item.false_choices.choice1}</li>
-                            <li onClick={() => this.handleChoice((item.answer),(item.false_choices), (item._id))} type="button" className="list-group-item">{item.answer}</li>
-                            <li onClick={() => this.handleChoice((item.answer),(item.false_choices), (item._id))} type="button" className="list-group-item">{item.false_choices.choice2}</li>
-                            <li onClick={() => this.handleChoice((item.answer),(item.false_choices), (item._id))} type="button" className="list-group-item">{item.false_choices.choice3}</li>
+                            <li onClick={() => this.handleChoice((1))} type="button" className="list-group-item">{item.false_choices.choice1}</li>
+                            <li onClick={() => this.handleChoice((2),item._id, item.points)} type="button" className="list-group-item">{item.answer}</li>
+                            <li onClick={() => this.handleChoice((3))} type="button" className="list-group-item">{item.false_choices.choice2}</li>
+                            <li onClick={() => this.handleChoice((4))} type="button" className="list-group-item">{item.false_choices.choice3}</li>
                         </ul>
                     </div>
                 )

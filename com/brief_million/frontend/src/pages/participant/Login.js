@@ -26,6 +26,7 @@ class LoginPage extends Component {
         if (isAuth) {
             this.props.history.push('/account')
         }
+        
     }
     _handleFormSubmit(values, bag){
         this.props.logIn(values);

@@ -1,6 +1,8 @@
 import { Formik } from 'formik';
 import  * as Yup from 'yup';
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+
 import {
     Col, 
     Form,
@@ -9,25 +11,33 @@ import {
     Label, 
     Row,
     Button,
-    FormFeedback
+    FormFeedback,
+    Alert
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import img from '../../assets/image.jpg';
-// import {signUp} from '../../actions';
-import axios from 'axios';
+import {signUp} from '../../actions/auth_action';
  
-class SignUp extends Component {
+class SignUpPage extends Component {
     componentDidUpdate(){
         const { error } = this.props;
         if (error && this.bag) {
             this.bag.setSubmitting(false);
         }
     }
-    _handleFormSubmit(values){
-        console.log(values);
-        this.props.signUp(values)
 
+    _renderErrorIfAny(){
+        const { error } = this.props;
+        if (error) {
+            return (<Alert color="danger">{error}</Alert>);
+        }
     }
+
+    _handleFormSubmit(values){
+        this.props.signUp(values)
+        // console.log(values);
+    }
+
     render() { 
         return (
             <div style={{
@@ -47,13 +57,14 @@ class SignUp extends Component {
                     <Col sm="6">
                         <div className="mt-5">
                         <h3>Sign up</h3>
+                        {this._renderErrorIfAny()}
                             <Formik 
-                                initialValues={{phone:"", password:"", fullName:"", email:"", age:""}}
+                                initialValues={{phone:"", password:"", full_name:"", email:"", age:""}}
                                 onSubmit={this._handleFormSubmit.bind(this)}
                                 validationSchema={Yup.object().shape({
                                     phone   : Yup.number().min(10).required(),
                                     password: Yup.string().min(8).required(),
-                                    fullName: Yup.string().min(8).required('full name is a required field'),
+                                    full_name: Yup.string().min(8).required('full name is a required field'),
                                     email: Yup.string().min(8).required(),
                                     age: Yup.date().required(),
                                 })}
@@ -70,15 +81,15 @@ class SignUp extends Component {
                                         <FormGroup>
                                             <Label>Full Name</Label>
                                             <Input 
-                                                invalid={errors.fullName && touched.fullName}
-                                                name="fullName" 
+                                                invalid={errors.full_name && touched.full_name}
+                                                name="full_name" 
                                                 type="text" 
                                                 placeholder="Full name"
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}>                                                
                                             </Input>
-                                            {errors.fullName && touched.fullName ? (
-                                                <FormFeedback>{errors.fullName}</FormFeedback>
+                                            {errors.full_name && touched.full_name ? (
+                                                <FormFeedback>{errors.full_name}</FormFeedback>
                                             ):null}
                                         </FormGroup>
                                         <FormGroup>
@@ -110,11 +121,11 @@ class SignUp extends Component {
                                             ):null}
                                         </FormGroup>
                                         <FormGroup>
-                                            <Label>Date of birth</Label>
+                                            <Label>Age</Label>
                                             <Input 
                                                 invalid={errors.age && touched.age}
                                                 name="age" 
-                                                type="date" 
+                                                type="number" 
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}>                                                
                                             </Input>
@@ -149,5 +160,11 @@ class SignUp extends Component {
         );
     }
 }
- 
+const mapStateToProps = ({auth}) => {
+     return {
+        signedUp : auth.signedUp,
+        error: auth.error
+    };
+};
+const SignUp = connect(mapStateToProps, {signUp})(SignUpPage)
 export {SignUp};

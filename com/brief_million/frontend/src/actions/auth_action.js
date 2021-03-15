@@ -1,20 +1,15 @@
-import {AUTH_ATTEMPTING, AUTH_SUCCESS, AUTH_FAILED, LOGOUT} from './types';
+import {AUTH_ATTEMPTING, AUTH_SUCCESS, AUTH_FAILED, LOGOUT, SIGNUP_SUCCESS} from './types';
 import {apiLogin, apiSignUp} from '../api/user';
 const TOKEN_NAME = 'Particip_token'
 
-export const signUp = async (values) =>{
-    try {
-        const {data} = ({
-            full_name: values.fullName,
-            email: values.email,
-            phone: values.phone,
-            age: values.age,
-            password: values.password
-        })
-        console.log(data);
-        // return await signUp(data);
-    } catch (error) {
-        console.log(error.message);
+export const signUp = (request_data) =>{
+    return async dispatch => {
+        try {
+            await apiSignUp(request_data)
+            dispatch({type:SIGNUP_SUCCESS})
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 }
 export const logIn = request_data =>{
