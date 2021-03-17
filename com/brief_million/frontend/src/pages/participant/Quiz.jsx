@@ -51,6 +51,7 @@ class Quiz extends Component {
     handleChoice(pAnswer, questionId, points){
        
         if (pAnswer === this.state.currentQuestion.answer) {
+
             let {score, currentQuestion} = this.state
             score = this.state.score + currentQuestion.points
             this.setState({score})
@@ -79,11 +80,9 @@ class Quiz extends Component {
                         score: score,
                     }).then(roundScore=>{
                         console.log('score',roundScore.data);
-                    }) 
+                    })                     
                 })    
             })
-
-
         }
         this.setState(pState => ({
             currentQuestionIndex: pState.currentQuestionIndex + 1,
@@ -98,9 +97,28 @@ class Quiz extends Component {
         // console.log(localStorage.getItem('idGroup'));
         socket.emit('rounded')
     }
+
+    final_win(maxIndexQst, finalScore){
+        if (maxIndexQst == 1) {
+            console.log('final winner');
+            // await axios.get('/gifts').then(giftImg=>{
+            //     console.log(giftImg.data);
+                axios.post('/final_winner/post',{
+                    id_round:'605167d1867591366c7a2fc5',
+                    final_score:finalScore,
+                    id_participant:'603643edd82d6a54a41bf795',
+                    id_gift:'6051d1fa390dcf32b0f7a16f',
+                }).then(winner=>{
+                    console.log('winner ',winner.data);
+                })
+            // })
+        }
+    }
+
     render() { 
         const {questions, currentQuestion, currentQuestionIndex, score} = this.state;
          console.log(score);
+         this.final_win(currentQuestionIndex, score)
         return (
             <center className="container mt-4">
                 {currentQuestionIndex + 1 +'/'+ questions.length}

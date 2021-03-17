@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
-import {SignUp, Home, Login, LogAdmin, Dashboard, Question, Account, Quiz} from './pages';
+import {SignUp, Home, Login, LogAdmin, Dashboard, Question, Account, Quiz, Winner} from './pages';
 
 class App extends Component {
   render(){
@@ -13,6 +13,7 @@ class App extends Component {
         <Switch>
           <ProtectedRoute path='/account' component={Account} exact/>
           <Route path='/start-quiz' component={Quiz} exact/>
+          <Route path='/winner' component={Winner} exact/>
         </Switch>
         <Route path='/' component={Home} exact/>
         <Route path='/participant/login' component={Login} exact/>

@@ -8,7 +8,7 @@ class Question extends Component {
         questions:[]
     }
     componentDidMount(){
-        axios.get('http://localhost:5000/question')
+        axios.get('/question')
             .then(res => {
                 console.log(res);
             this.setState({
