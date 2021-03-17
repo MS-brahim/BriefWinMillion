@@ -43,6 +43,10 @@ io.on('connection', socket => {
         io.emit('start game');
     })
 
+    socket.on('rounded', () => { 
+        io.emit('round');
+    })
+
     const adminRouter = require('./api/routes/admin.router');
     server.use('/admin', adminRouter);
 

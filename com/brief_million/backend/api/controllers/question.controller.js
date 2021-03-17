@@ -3,7 +3,7 @@ const Question = require('../models/Question.model');
 // GET QUESTIONS
 const getQuestin = async (req,res)=>{
     try {
-        const questions = await Question.find().limit(1);
+        const questions = await Question.find();
         res.json(questions) 
     } catch (error) {
         res.json({message:error})
@@ -13,14 +13,12 @@ const getQuestin = async (req,res)=>{
 // POST NEW QUESTION 
 const postQuestion = async (req, res)=>{
 
-    // CHECK IF NUMBER PHONE ALREADY EXISTS 
-    // const phoneExist = await Question.findOne({phone:req.body.phone});
-    // if(phoneExist) return res.status(400).send('Phone Number already exists');
-
     const newQuestion = new Question({
         question        : req.body.question,
         answer          : req.body.answer,
-        false_choices   : req.body.false_choices,
+        false_choice1   : req.body.false_choice1,
+        false_choice2   : req.body.false_choice2,
+        false_choice3   : req.body.false_choice3,
         points          : req.body.points
     });
     try {
@@ -39,9 +37,11 @@ const updateQuestion = async (req, res)=>{
             {
                 $set:{    
                     question        : req.body.question,
-                    answer          : req.body.email,
-                    false_choices   : req.body.age,
-                    points          : req.body.phone
+                    answer          : req.body.answer,
+                    false_choice1   : req.body.false_choice1,
+                    false_choice2   : req.body.false_choice2,
+                    false_choice3   : req.body.false_choice3,
+                    points          : req.body.points
                 },
             }
         );

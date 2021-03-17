@@ -9,17 +9,22 @@ const questionSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    false_choices:{
-        type:{
-            choice1:String,
-            choice2:String,
-            choice3:String
-        },
-        required:true
+    false_choice1:{
+        type:String,
+        required:true,
+    },
+    false_choice2:{
+        type:String,
+        required:true,
+    },
+    false_choice3:{
+        type:String,
+        required:true,
     },
     points:{
         type:Number,
-        required:true
+        required:true,
+        default:0
     },
     dateCreate:{
         type:Date,

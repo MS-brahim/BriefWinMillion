@@ -11,7 +11,7 @@ const registerValidation = data =>{
             .required()
             .email(),
         age: Joi.number()
-            .min(2),
+            .min(3),
         phone: Joi.string()
             .min(10)
             .required(),

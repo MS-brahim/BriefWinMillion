@@ -14,10 +14,10 @@ const findRoundSS = async (req, res)=>{
 // POST NEW ROUND SCORES STATISTIC 
 const postRoundScore = async (req, res)=>{
 
-    const displayScore = await QuestionModel.findOne(
-        {_id:req.params.id},
-    )
-    // console.log(res.json(displayScore));
+    // const displayScore = await QuestionModel.findOne(
+    //     {_id:req.params.id},
+    // )
+    // // console.log(res.json(displayScore));
 
     
     const newRoundScore = new RoundScore({

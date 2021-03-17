@@ -31,6 +31,10 @@ const participantSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    score: {
+        type:Number,
+        default:0  
+    },
     dateCreate:{
         type:Date,
         default:Date.now
