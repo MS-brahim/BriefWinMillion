@@ -1,0 +1,119 @@
+[
+    {
+        "question": "If you want to import just the Component from the React library, what syntax do you use?",
+        "answer": "import { Component } from 'react'",
+        "false_choice1":"import Component from 'react'",
+        "false_choice2": "import [ Component ] from 'react'",
+        "false_choice3": "import React.Component from 'react'"
+    
+    },
+    {
+        "question": "If a function component should always render the same way given the same props, what is a simple performance optimization available for it?",
+        "answer": "Wrap it in the React.memo higher-order component.",
+        "false_choice1": "Implement the useReducer Hook.",
+        "false_choice2": "Implement the useMemo Hook",
+        "false_choice3": "Implement the shouldComponentUpdate lifecycle method."
+      
+    },
+    {
+        "question": "If you see the following import in a file, what is being used for state management in the component? (import React, {useState} from 'react';)",
+        "answer": " React Hooks",
+        "false_choice1": "stateful components",
+        "false_choice2": " math",
+        "false_choice3": "class components"
+     
+    },
+    {
+        "question": "What is the testing library most often associated with React?",
+        "answer": "Jest",
+        "false_choice1": "Chai",
+        "false_choice2": " Mocha",
+        "false_choice3": " Sinon"
+
+    },
+    {
+        "question": "How do you handle passing through the component tree without having to pass props down manually at every level?",
+        "answer": "React Context",
+        "false_choice1": " React Send",
+        "false_choice2": " React Pinpoint",
+        "false_choice3": "  React Router"
+       
+    },
+    {
+        "question": "What is the name of the tool used to take JSX and turn it into createElement calls?",
+        "answer": "Babel",
+        "false_choice1": " JSX Editor",
+        "false_choice2": "ReactDOM",
+        "false_choice3": "Browser Buddy"
+
+    },
+    {
+        "question": "What can you use to handle code splitting?",
+        "answer": "React.lazy",
+        "false_choice1": "React.memo",
+        "false_choice2": "React.split",
+        "false_choice3": "React.fallback"
+      
+    },
+    {
+        "question": "When do you use useLayoutEffect?",
+        "answer": "when you need the browser to paint before the effect runs",
+        "false_choice1": "to optimize for all devices",
+        "false_choice2": " to complete the update",
+        "false_choice3": " to change the layout of the screen"
+      
+    },
+    {
+        "question": "What is the children prop?",
+        "answer": " a property that lets you pass components as data to other components",
+        "false_choice1": "a property that adds child components to state",
+        "false_choice2": " a property that lets you set an array as a property",
+        "false_choice3": "a property that lets you pass data to child elements"
+      
+    },
+    {
+        "question": " Which attribute do you use to replace innerHTML in the browser DOM?",
+        "answer": " dangerouslySetInnerHTML",
+        "false_choice1": "injectHTML",
+        "false_choice2": "weirdSetInnerHTML",
+        "false_choice3": "strangeHTML"
+    },
+    {
+        "question": "Which of these terms commonly describe React applications?",
+        "answer": " declarative",
+        "false_choice1": "integrated",
+        "false_choice2": "closed",
+        "false_choice3": "imperative"
+      
+    },
+    {
+        "question": "When using webpack, why would you need to use a loader?",
+        "answer": "to load external data",
+        "false_choice1": "to put together physical file folders",
+        "false_choice2": "to preprocess files",
+        "false_choice3": "to load the website into everyone's phone"
+
+    },
+    {
+        "question": "A representation of a user interface that is kept in memory and is synced with the 'real' DOM is called what?",
+        "answer": "virtual DOM",
+        "false_choice1": "DOM",
+        "false_choice2": "virtual elements",
+        "false_choice3": "shadow DOM"
+    },
+    {
+        "question": "To create a constant in JavaScript, which keyword do you use?",
+        "answer": "const",
+            "false_choice1": "let",
+            "false_choice2": "constant",
+            "false_choice3": "var"
+       
+    },
+    {
+        "question": "What package contains the render() function that renders a React element tree to the DOM?",
+        "answer": "ReactDOM",
+            "false_choice1": "React",
+            "false_choice2": "Render",
+            "false_choice3": "DOM"
+    }
+]
