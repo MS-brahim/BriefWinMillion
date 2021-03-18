@@ -24,6 +24,7 @@ class SignUpPage extends Component {
         if (error && this.bag) {
             this.bag.setSubmitting(false);
         }
+        this.props.history.push('/login')
     }
 
     _renderErrorIfAny(){

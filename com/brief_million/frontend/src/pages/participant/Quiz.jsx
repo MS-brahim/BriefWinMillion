@@ -116,6 +116,7 @@ class Quiz extends Component {
                 }).then(winner=>{
                     console.log('winner ',winner.data);
                     localStorage.setItem('winID', winner.data._id)
+                    this.props.history.push('/winner')
                 })
             })
         }
