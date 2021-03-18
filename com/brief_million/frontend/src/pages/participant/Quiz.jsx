@@ -29,7 +29,7 @@ class Quiz extends Component {
             headers: { "Authorization": localStorage.getItem('token') },
         })
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
             this.setState({
                 questions: res.data,
             })
@@ -58,7 +58,7 @@ class Quiz extends Component {
             let {score, currentQuestion, roundID} = this.state
             score = this.state.score + currentQuestion.points;
             roundID = this.state.roundID
-            console.log(roundID);
+            // console.log(roundID);
             this.setState({score})
             // console.log(score);
 
@@ -70,21 +70,21 @@ class Quiz extends Component {
                 }
             )
             .then(resQsToken =>{
-                console.log('question token',resQsToken.data);   
+                // console.log('question token',resQsToken.data);   
                 axios.post('/round/post',
                 {
                     id_group_member:localStorage.getItem('idGroup'),
                     id_question: questionId,
                     id_question_token:resQsToken.data._id,
                 }).then(round=>{
-                    console.log('round',round.data);
+                    // console.log('round',round.data);
     
                     axios.post('/round_score/post',
                     {
                         id_round: round.data._id,
                         score: score,
                     }).then(roundScore => {
-                        console.log('score',roundScore.data);
+                        // console.log('score',roundScore.data);
                     })                     
                 })    
             })
@@ -105,9 +105,9 @@ class Quiz extends Component {
 
     final_win(maxIndexQst, finalScore){
         if (maxIndexQst == 15) {
-            console.log('final winner');
+            // console.log('final winner');
             axios.get('/gifts').then(giftImg=>{
-                console.log(giftImg.data);
+                console.log('gift',giftImg.data);
                 axios.post('/final_winner/post',{
                     id_round:'605167d1867591366c7a2fc5',
                     final_score:finalScore,
@@ -124,7 +124,7 @@ class Quiz extends Component {
 
     render() { 
         const {questions, currentQuestion, currentQuestionIndex, score} = this.state;
-         console.log(score);
+        //  console.log(score);
          this.final_win(currentQuestionIndex, score)
         return (
             <center className="container mt-4">

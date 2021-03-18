@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
+import {Container, Table } from 'reactstrap';
 import Sidebar from '../../components/auth/Sidebar';
+import {NavBar} from '../../components/Navbar.jsx';
 
 import axios from 'axios';
 class Question extends Component {  
@@ -41,29 +42,27 @@ class Question extends Component {
             )
         return (
             <div>
-                <div className="d-flex" id="wrapper">
+                <NavBar/>
+                <div className="d-flex">
                     <Sidebar/>
-                    
-                    <div className=" m-4">
-                        <div className="bg-dark text-white pl-3 p-2 "><b>All Questions</b> <b type="button" className="bg-light text-dark float-right mr-2 px-2">+</b></div>
-                        <div className="table-responsive">
-                            <Table>
-                                <thead className="thead-light">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Question</th>
-                                        <th>Answer</th>
-                                        <th>False Chice</th>
-                                        <th>Points</th>
-                                        <th>Del/Edit</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {questionList}
-                                </tbody>
-                            </Table>
-                        </div>
-                    </div>
+                    <Container className="mt-4">
+                        <div className="bg-dark text-white pl-3 p-2"><b>All Questions</b> <span type="button" className="float-right" onClick={()=>this.postAdmin()}>Add New Admin +</span></div>
+                        <Table bordered>
+                            <thead className="thead-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Question</th>
+                                    <th>Answer</th>
+                                    <th>False Chice</th>
+                                    <th>Points</th>
+                                    <th>Del/Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {questionList}
+                            </tbody>
+                        </Table>
+                    </Container>
                 </div>
             </div>
         );

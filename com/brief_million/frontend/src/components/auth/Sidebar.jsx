@@ -7,11 +7,10 @@ class Sidebar extends Component {
             <div>
                 <div className="bg-light border-right" id="sidebar-wrapper">
                     <div className="list-group list-group-flush">
-                        <Link to="/participationts" className="list-group-item list-group-item-action bg-light">Participants</Link>
+                        <Link to="/dashboard" className="list-group-item list-group-item-action bg-light">Participants</Link>
                         <Link to="/admins" className="list-group-item list-group-item-action bg-light">Administrator</Link>
                         <Link to="/questions" className="list-group-item list-group-item-action bg-light">Questions</Link>
                         <Link to="/gifts" className="list-group-item list-group-item-action bg-light">Gifts</Link>
-                        <Link to="#" className="list-group-item list-group-item-action bg-light">Status</Link>
                     </div>
                 </div>
             </div>
