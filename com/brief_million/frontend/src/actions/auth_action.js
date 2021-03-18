@@ -1,6 +1,6 @@
 import {AUTH_ATTEMPTING, AUTH_SUCCESS, AUTH_FAILED, LOGOUT, SIGNUP_SUCCESS} from './types';
-import {apiLogin, apiSignUp} from '../api/user';
-const TOKEN_NAME = 'Particip_token'
+import {apiLogin, apiLoginAdmin, apiSignUp} from '../api/user';
+const TOKEN_NAME = 'token'
 
 export const signUp = (request_data) =>{
     return async dispatch => {
@@ -12,6 +12,21 @@ export const signUp = (request_data) =>{
         }
     }
 }
+
+export const logInAdmin = request_data =>{
+
+    return async dispatch =>{
+        dispatch({type:AUTH_ATTEMPTING});
+        try {
+            const {data:{token,authAdmin}} = await apiLoginAdmin(request_data)
+            dispatch(success(token))
+            localStorage.setItem('idAdmin', authAdmin._id);
+        } catch (e) {
+            dispatch(error(e.response.data))
+        }
+    }
+};
+
 export const logIn = request_data =>{
 
     return async dispatch =>{

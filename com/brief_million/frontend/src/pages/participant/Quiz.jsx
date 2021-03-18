@@ -12,7 +12,8 @@ class Quiz extends Component {
             currentQuestion:{},
             currentQuestionIndex:0,
             nextQuestion:{},
-            score:0
+            score:0,
+            roundID:[]
         }
     }
      
@@ -23,9 +24,9 @@ class Quiz extends Component {
     }
 
     displayQuestions = (questions , currentQuestion, nextQuestion)=>{
-        let {currentQuestionIndex, score} = this.state;
+        let {currentQuestionIndex, score, roundID} = this.state;
         axios.get('/question',{
-            headers: { "Authorization": localStorage.getItem('Particip_token') },
+            headers: { "Authorization": localStorage.getItem('token') },
         })
             .then(res => {
                 console.log(res.data);
@@ -37,12 +38,14 @@ class Quiz extends Component {
                 questions = this.state.questions;
                 currentQuestion = questions[currentQuestionIndex];
                 nextQuestion = questions[currentQuestionIndex + 1];
+                
                 // console.log(score);
                 
                 this.setState({
                     currentQuestion,
                     nextQuestion,
                     score,
+                    roundID,
                 })
             }
         })   
@@ -52,8 +55,10 @@ class Quiz extends Component {
        
         if (pAnswer === this.state.currentQuestion.answer) {
 
-            let {score, currentQuestion} = this.state
-            score = this.state.score + currentQuestion.points
+            let {score, currentQuestion, roundID} = this.state
+            score = this.state.score + currentQuestion.points;
+            roundID = this.state.roundID
+            console.log(roundID);
             this.setState({score})
             // console.log(score);
 
@@ -73,12 +78,12 @@ class Quiz extends Component {
                     id_question_token:resQsToken.data._id,
                 }).then(round=>{
                     console.log('round',round.data);
-                    
+    
                     axios.post('/round_score/post',
                     {
-                        id_round:round.data._id,
+                        id_round: round.data._id,
                         score: score,
-                    }).then(roundScore=>{
+                    }).then(roundScore => {
                         console.log('score',roundScore.data);
                     })                     
                 })    
@@ -99,19 +104,20 @@ class Quiz extends Component {
     }
 
     final_win(maxIndexQst, finalScore){
-        if (maxIndexQst == 1) {
+        if (maxIndexQst == 15) {
             console.log('final winner');
-            // await axios.get('/gifts').then(giftImg=>{
-            //     console.log(giftImg.data);
+            axios.get('/gifts').then(giftImg=>{
+                console.log(giftImg.data);
                 axios.post('/final_winner/post',{
                     id_round:'605167d1867591366c7a2fc5',
                     final_score:finalScore,
-                    id_participant:'603643edd82d6a54a41bf795',
-                    id_gift:'6051d1fa390dcf32b0f7a16f',
+                    id_participant:localStorage.getItem('idAuthP'),
+                    id_gift:giftImg.data._id,
                 }).then(winner=>{
                     console.log('winner ',winner.data);
+                    localStorage.setItem('winID', winner.data._id)
                 })
-            // })
+            })
         }
     }
 
@@ -124,12 +130,12 @@ class Quiz extends Component {
                 {currentQuestionIndex + 1 +'/'+ questions.length}
                 <span className="float-right">Score: {score}</span>
                 <div key={currentQuestion._id} className="mt-5">
-                    <span className="card bg-primary text-white p-3 my-3">{currentQuestion.question}</span>
+                    <span className="card bg-light text-dark p-3 my-3">{currentQuestion.question}</span>
                     <div className="row justify-content-md-center">
-                        <span onClick={() => this.handleChoice((currentQuestion.false_choice1),currentQuestion._id, currentQuestion.points)} type="button" className="col-sm-4 bg-dark text-white rounded p-3 m-3">{currentQuestion.false_choice1}</span>
-                        <span onClick={() => this.handleChoice((currentQuestion.answer),currentQuestion._id, currentQuestion.points)} type="button" className="col-sm-4 bg-dark text-white rounded p-3 m-3">{currentQuestion.answer}</span>
-                        <span onClick={() => this.handleChoice((currentQuestion.false_choice2),currentQuestion._id, currentQuestion.points)} type="button" className="col-sm-4 bg-dark text-white rounded p-3 m-3">{currentQuestion.false_choice2}</span>
-                        <span onClick={() => this.handleChoice((currentQuestion.false_choice3),currentQuestion._id, currentQuestion.points)} type="button" className="col-sm-4 bg-dark text-white rounded p-3 m-3">{currentQuestion.false_choice3}</span>
+                        <span onClick={() => this.handleChoice((currentQuestion.false_choice1),currentQuestion._id, currentQuestion.points)} type="button" className="col-sm-4 btn btn-outline-dark rounded p-3 m-3">{currentQuestion.false_choice1}</span>
+                        <span onClick={() => this.handleChoice((currentQuestion.answer),currentQuestion._id, currentQuestion.points)} type="button" className="col-sm-4 btn btn-outline-dark rounded p-3 m-3">{currentQuestion.answer}</span>
+                        <span onClick={() => this.handleChoice((currentQuestion.false_choice2),currentQuestion._id, currentQuestion.points)} type="button" className="col-sm-4 btn btn-outline-dark rounded p-3 m-3">{currentQuestion.false_choice2}</span>
+                        <span onClick={() => this.handleChoice((currentQuestion.false_choice3),currentQuestion._id, currentQuestion.points)} type="button" className="btn btn-outline-dark col-sm-4 rounded p-3 m-3">{currentQuestion.false_choice3}</span>
                     </div>
                 </div>
             </center>

@@ -7,14 +7,20 @@ class Question extends Component {
     state = {
         questions:[]
     }
-    componentDidMount(){
-        axios.get('/question')
+
+    async getQuestion(){
+        await axios.get('/question', {
+            headers:{ "Authorization": localStorage.getItem('token')}
+        })
             .then(res => {
                 console.log(res);
             this.setState({
                 questions: res.data,
             })
         })
+    }
+    componentDidMount(){
+        this.getQuestion()
     } 
     render() { 
         const {questions} = this.state;
@@ -25,9 +31,8 @@ class Question extends Component {
                             <th scope="row">{index+1}</th>
                             <td>{item.question}</td>
                             <td className="text-success">{item.answer}</td>
-                            <td className="text-danger">-{item.false_choices.choice1 }<br/>-{item.false_choices.choice2 }<br/>-{item.false_choices.choice3 }</td>
+                            <td className="text-danger">-{item.false_choice1 }<br/>-{item.false_choice2 }<br/>-{item.false_choice3 }</td>
                             <th className="text-center">{item.points}</th>
-                            <td>{   }</td>
                         </tr>
                     )
                 })

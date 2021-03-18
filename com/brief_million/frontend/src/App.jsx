@@ -12,8 +12,8 @@ class App extends Component {
       <div>
         <Switch>
           <ProtectedRoute path='/account' component={Account} exact/>
-          <Route path='/start-quiz' component={Quiz} exact/>
-          <Route path='/winner' component={Winner} exact/>
+          <ProtectedRoute path='/start-quiz' component={Quiz} exact/>
+          <ProtectedRoute path='/winner' component={Winner} exact/>
         </Switch>
         <Route path='/' component={Home} exact/>
         <Route path='/participant/login' component={Login} exact/>

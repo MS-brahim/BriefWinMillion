@@ -13,7 +13,7 @@ import {
     FormFeedback
 } from 'reactstrap';
 import {connect} from 'react-redux';
-import {logIn} from '../../actions';
+import {logInAdmin} from '../../actions';
 
 class LoginPage extends Component {
 
@@ -27,7 +27,7 @@ class LoginPage extends Component {
         }
     }
     _handleFormSubmit(values, bag){
-        this.props.logIn(values);
+        this.props.logInAdmin(values);
         this.bag = bag;
     }
     _renderErrorIfAny(){
@@ -119,5 +119,5 @@ const mapStateToProps = ({ auth }) =>{
         isAuth     : auth.isAuth,
     }
 }
-const LogAdmin = connect(mapStateToProps, { logIn })(LoginPage)
+const LogAdmin = connect(mapStateToProps, { logInAdmin })(LoginPage)
 export {LogAdmin};
