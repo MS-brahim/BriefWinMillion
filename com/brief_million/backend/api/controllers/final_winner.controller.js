@@ -3,7 +3,7 @@ const finalWinnerSchema = require('../models/Final_winner.model');
 // FIND ALL FINAL WINNER
 const findFinalWin = async (req, res)=>{
     try {
-        const fWinners = await finalWinnerSchema.find().populate('id_round').populate('id_participant').populate('id_gift');
+        const fWinners = await finalWinnerSchema.findOne({_id:req.params.id}).populate('id_round').populate('id_participant').populate('id_gift');
         res.json(fWinners) 
     } catch (error) {
         res.json({message:error})
@@ -12,7 +12,7 @@ const findFinalWin = async (req, res)=>{
 
 // POST NEW FINAL WINNER
 const postFinalWin = async (req, res)=>{
-
+    
     const newWinnner = new finalWinnerSchema({
         id_round        : req.body.id_round,
         final_score     : req.body.final_score,

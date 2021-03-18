@@ -24,7 +24,7 @@ const questionSchema = new mongoose.Schema({
     points:{
         type:Number,
         required:true,
-        default:0
+        default:5
     },
     dateCreate:{
         type:Date,

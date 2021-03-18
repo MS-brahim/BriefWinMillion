@@ -38,7 +38,7 @@ const loginAdmin = async (req, res)=>{
     if(!authAdmin) return res.status(400).send('Phone Number is not found!!');
 
     const token = jwt.sign({_id:authAdmin._id}, process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIR});
-    res.header('Authorization', token).send(token);
+    res.header('Authorization', token).send({token,authAdmin});
 
 };
 

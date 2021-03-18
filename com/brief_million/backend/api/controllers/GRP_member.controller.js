@@ -10,6 +10,15 @@ const getGrpMemebr = async (req,res)=>{
     }
 };
 
+const getGrpMemebrById = async (req,res, id)=>{
+    try {
+        const groupMembers = await GroupMember.findOne({_id:req.params.id}).populate('id_participant');
+        res.json(groupMembers) 
+    } catch (error) {
+        res.json({message:error})
+    }
+};
+
 // POST NEW GROUP MEMEBER 
 const postGrpMember = async (req, res)=>{
 
@@ -17,10 +26,9 @@ const postGrpMember = async (req, res)=>{
         const existParticipant = await GroupMember.findOne({id_participant:req.body.id_participant[i]})
         if(existParticipant) return res.status(400).send('Participant already exists in Group');
     }
-    console.log(req.body.id_participant[0]);
     const newgroupMember = new GroupMember({
         id_participant  : req.body.id_participant,
-        group_code      : 'GCode'+Math.floor(Math.random() * 1000)+req.body.id_participant[0]
+        group_code      : 'GCode'+Math.floor(Math.random() * 10000)
     });
     try {
         const savegroupMember = await newgroupMember.save();
@@ -92,5 +100,6 @@ module.exports = {
     postGrpMember, 
     updateGrpMember, 
     deleteGrpMember,
-    joiGroup
+    joiGroup,
+    getGrpMemebrById
 };

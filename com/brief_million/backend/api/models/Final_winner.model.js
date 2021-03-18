@@ -5,8 +5,10 @@ const RoundModel = require('./Round.model');
 
 const finalWinnerSchema = new mongoose.Schema({
     id_round:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:RoundModel
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: RoundModel,
+        }],
     },
     final_score:{
         type:Number,
