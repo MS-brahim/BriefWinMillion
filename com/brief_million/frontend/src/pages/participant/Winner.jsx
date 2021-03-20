@@ -6,6 +6,7 @@ class Winner extends Component {
         super(props);
         this.state = {
             winners:{},
+            participantWin:{}
         };
     }
 
@@ -21,6 +22,7 @@ class Winner extends Component {
                         if (idpInGr === fWin.data.id_participant._id) {
                             this.setState({
                                 winners: fWin.data,
+                                participantWin: fWin.data.id_participant,
                             })
                         }
                     }
@@ -35,8 +37,8 @@ class Winner extends Component {
     }
 
     render() { 
-        const {winners} = this.state;
-        console.log(winners.id_participant);
+        const {winners, participantWin} = this.state;
+        console.log(participantWin);
         return (
             <center className="container my-5">
                 <div className="card">
@@ -50,12 +52,7 @@ class Winner extends Component {
                         bottom:'40%', 
                         display:'flex', 
                         justifyContent:'center'}}>
-                        <strong className="shadow mb-5 rounded p-2 text-warning"><div className="mt-3">{
-                             
-                            
-                            
-                        
-                        } </div><br/> 
+                        <strong className="shadow mb-5 rounded p-2 text-warning"><div className="mt-3">{participantWin.full_name} </div><br/> 
                             <i className="text-dark bg-light rounded px-2 m-3">{(winners.final_score)}</i><br/>
                             <i className="fas fa-trophy m-3" style={{fontSize:'90px'}}></i>  
                         </strong>

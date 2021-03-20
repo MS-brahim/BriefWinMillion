@@ -71,10 +71,9 @@ class Quiz extends Component {
             )
             .then(resQsToken =>{
                 // console.log('question token',resQsToken.data);   
-                axios.post('/round/post',
-                {
+                axios.post('/round/post',{
                     id_group_member:localStorage.getItem('idGroup'),
-                    id_question: questionId,
+                    id_question:questionId,
                     id_question_token:resQsToken.data._id,
                 }).then(round=>{
                     // console.log('round',round.data);
@@ -107,7 +106,7 @@ class Quiz extends Component {
         if (maxIndexQst == 15) {
             // console.log('final winner');
             axios.get('/gifts').then(giftImg=>{
-                console.log('gift',giftImg.data);
+                // console.log('gift',giftImg.data);
                 axios.post('/final_winner/post',{
                     id_round:'605167d1867591366c7a2fc5',
                     final_score:finalScore,
@@ -125,7 +124,7 @@ class Quiz extends Component {
     render() { 
         const {questions, currentQuestion, currentQuestionIndex, score} = this.state;
         //  console.log(score);
-         this.final_win(currentQuestionIndex, score)
+        this.final_win(currentQuestionIndex, score)
         return (
             <center className="container mt-4">
                 {currentQuestionIndex + 1 +'/'+ questions.length}

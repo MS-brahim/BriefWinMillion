@@ -102,9 +102,9 @@ class AccountPage extends Component {
         // {console.log(localStorage.getItem('idAuthP'))}
         return (
             
-            <div className="m-4">  
+            <div>  
                 <NavBar/> 
-                <Row xs="1" sm="2" md="4">
+                <Row xs="1" sm="2" md="4" className="m-4">
                     <Col className="mt-4">
                         <Card id="fromGroup">
                             <CardBody
