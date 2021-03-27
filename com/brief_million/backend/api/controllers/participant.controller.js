@@ -150,11 +150,25 @@ const deleteParticipant = async (req, res)=>{
     }
 }
 
+// UPDATE PARTICIPANT
+const sendFinaleScore = async (req, res)=>{
+    try {
+        const fScore = await Paricipant.updateOne(
+            {_id:req.params.id},
+            {$set:{score   : req.body.score}}
+        );
+        res.status(200).json(fScore);
+    } catch (error) {
+        res.json({message:error})
+    }
+}
+
 module.exports = {
     getParticipant, 
     registerParticipant,
     validerParticipant,
     loginParticipant,
     updateParticipant, 
-    deleteParticipant
+    deleteParticipant,
+    sendFinaleScore,
 };

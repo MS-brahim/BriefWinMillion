@@ -8,6 +8,7 @@ router.route('/').get( participantController.getParticipant)
 router.route('/SignUp').post(participantController.registerParticipant)
 router.route('/login').post(participantController.loginParticipant)
 router.route('/validateParticipant/:id').patch( participantController.validerParticipant)
+router.route('/sendScore/:id').patch( participantController.sendFinaleScore)
 
 // router.route('/update/:id').patch(participantController.updateParticipant)
 // router.route('/delete/:id').delete(participantController.deleteParticipant)
