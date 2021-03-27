@@ -7,7 +7,6 @@ import { NavBar } from '../../components/Navbar.jsx';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
-// const socket = io.connect('http://localhost:5000');
 const socket = io();
 
 
@@ -57,7 +56,7 @@ class AccountPage extends Component {
 
     // Start Game 
     startQuiz(id){
-        console.log(id);
+        // console.log(id);
         localStorage.setItem('idGroup', id);
         socket.emit('quiz')
     }

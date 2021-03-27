@@ -24,7 +24,7 @@ class Quiz extends Component {
     }
 
     displayQuestions = (questions , currentQuestion, nextQuestion)=>{
-        let {currentQuestionIndex, score, roundID} = this.state;
+        let {currentQuestionIndex, score} = this.state;
         axios.get('/question',{
             headers: { "Authorization": localStorage.getItem('token') },
         })
@@ -44,8 +44,7 @@ class Quiz extends Component {
                 this.setState({
                     currentQuestion,
                     nextQuestion,
-                    score,
-                    roundID,
+                    score
                 })
             }
         })   
@@ -57,7 +56,8 @@ class Quiz extends Component {
 
             let {score, currentQuestion, roundID} = this.state
             score = this.state.score + currentQuestion.points;
-            roundID = this.state.roundID
+            
+            // roundID = this.state.roundID
             // console.log(roundID);
             this.setState({score})
             // console.log(score);
@@ -76,14 +76,17 @@ class Quiz extends Component {
                     id_question:questionId,
                     id_question_token:resQsToken.data._id,
                 }).then(round=>{
-                    // console.log('round',round.data);
-    
+                    console.log('round',round.data);
+                    // roundID.push(roundID+round.data._id)
+                    // this.setState({roundID:round.data._id})
+                    // console.log(roundID);
+
                     axios.post('/round_score/post',
                     {
                         id_round: round.data._id,
                         score: score,
                     }).then(roundScore => {
-                        // console.log('score',roundScore.data);
+                        console.log('score',roundScore.data);
                     })                     
                 })    
             })
@@ -94,40 +97,48 @@ class Quiz extends Component {
             score: pState.score 
         }), ()=>{
             this.displayQuestions(this.state.questions, this.state.currentQuestion, this.state.nextQuestion)
+            socket.emit('rounded')
+            console.log(this.state.score);
+            if (this.state.currentQuestionIndex === 15) {
+                this.final_win(this.state.score)
+            }
         })
         // console.log(pAnswer, questionId);
         // console.log({answer, falseChoice, questionId});
         // console.log(localStorage.getItem('idAuthP'));
         // console.log(localStorage.getItem('idGroup'));
-        socket.emit('rounded')
+        
     }
 
-    final_win(maxIndexQst, finalScore){
-        if (maxIndexQst == 15) {
-            // console.log('final winner');
-            axios.get('/gifts').then(giftImg=>{
-                // console.log('gift',giftImg.data);
-                axios.post('/final_winner/post',{
-                    id_round:'605167d1867591366c7a2fc5',
-                    final_score:finalScore,
-                    id_participant:localStorage.getItem('idAuthP'),
-                    id_gift:giftImg.data._id,
-                }).then(winner=>{
-                    console.log('winner ',winner.data);
-                    localStorage.setItem('winID', winner.data._id)
-                    this.props.history.push('/winner')
-                })
+    final_win(finalScore){
+        axios.get('/gifts').then(giftImg=>{
+            // console.log('gift',giftImg.data);
+            axios.post('/final_winner/post',{
+                id_round:'605167d1867591366c7a2fc5',
+                final_score:finalScore,
+                id_participant:localStorage.getItem('idAuthP'),
+                id_gift:giftImg.data._id,
+            }).then(winner=>{
+                console.log('winner ',winner.data);
+                localStorage.setItem('winID', winner.data._id)
+                
             })
-        }
+        })
+        axios.patch('/participant/sendScore/'+ localStorage.getItem('idAuthP'), {
+            score: finalScore,
+        }).then(fscore=>{
+            console.log('send score', fscore.data);
+        })
+        this.props.history.push('/winner')
     }
 
     render() { 
         const {questions, currentQuestion, currentQuestionIndex, score} = this.state;
         //  console.log(score);
-        this.final_win(currentQuestionIndex, score)
+        
         return (
             <center className="container mt-4">
-                {currentQuestionIndex + 1 +'/'+ questions.length}
+                {currentQuestionIndex +'/'+ questions.length}
                 <span className="float-right">Score: {score}</span>
                 <div key={currentQuestion._id} className="mt-5">
                     <span className="card bg-light text-dark p-3 my-3">{currentQuestion.question}</span>

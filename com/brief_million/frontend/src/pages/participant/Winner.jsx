@@ -13,21 +13,24 @@ class Winner extends Component {
     async getWinner(){
         await axios.get('/groupMember/'+ localStorage.getItem('idGroup')).then(
             gStory => {
+            
+
+            const pScore = [gStory.data.id_participant[0].score, gStory.data.id_participant[1].score, gStory.data.id_participant[2].score,gStory.data.id_participant[3].score];
+
             for (let i = 0; i < gStory.data.id_participant.length; i++) {
-                const idpInGr = gStory.data.id_participant[i]._id;
-                // console.log(gStory.data.id_participant[i].full_name);
-                axios.get('/final_winner/'+localStorage.getItem('winID')).then(
-                    fWin => {
-                        // console.log(fWin.data.id_participant._id);
-                        if (idpInGr === fWin.data.id_participant._id) {
-                            this.setState({
-                                winners: fWin.data,
-                                participantWin: fWin.data.id_participant,
-                            })
-                        }
-                    }
-                )
+                const pWinner = gStory.data.id_participant[i];
+                // console.log(pWinner.score);
+
+                if (Math.max(...pScore) === pWinner.score) {
+                    console.log('ok');
+                    this.setState({
+                        winners: Math.max(...pScore),
+                        participantWin: pWinner,
+                    })
+                }
+                
             }
+            
             
         })
         
@@ -38,7 +41,7 @@ class Winner extends Component {
 
     render() { 
         const {winners, participantWin} = this.state;
-        console.log(participantWin);
+        // console.log(participantWin);
         return (
             <center className="container my-5">
                 <div className="card">
@@ -53,7 +56,7 @@ class Winner extends Component {
                         display:'flex', 
                         justifyContent:'center'}}>
                         <strong className="shadow mb-5 rounded p-2 text-warning"><div className="mt-3">{participantWin.full_name} </div><br/> 
-                            <i className="text-dark bg-light rounded px-2 m-3">{(winners.final_score)}</i><br/>
+                            <i className="text-dark bg-light rounded px-2 m-3">{(participantWin.score)}</i><br/>
                             <i className="fas fa-trophy m-3" style={{fontSize:'90px'}}></i>  
                         </strong>
                     </h3>
